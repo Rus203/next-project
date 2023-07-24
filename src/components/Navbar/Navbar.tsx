@@ -22,17 +22,17 @@ const links = [
   },
   {
     id: 4,
-    title: 'about',
+    title: 'About',
     url: '/about'
   },
   {
     id: 5,
-    title: 'contact',
+    title: 'Contact',
     url: '/contact'
   },
   {
     id: 6,
-    title: 'dashboard',
+    title: 'Dashboard',
     url: '/dashboard'
   }
 ];
