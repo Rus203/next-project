@@ -37,21 +37,18 @@ const links = [
   }
 ];
 
-const Navbar: FC = () => {
+export const Navbar: FC = () => {
   return (
   <div className={style.container} >
     <Link className={style.logo} href='/'>Rus203</Link>
     <div className={style.links}>
     { links.map(page => 
       (<Link href={page.url} key={page.id}>{page.title}</Link>))}
-    <button className={style.logout}
-      onClick={() => {
-        console.log('logout');
-        }}>
+    <button
+        className={style.logout}
+        onClick={() => console.log('logout')}>
           Log out
       </button>
     </div>
   </div>);
 };
-
-export default Navbar;
