@@ -6,7 +6,7 @@ import Link from 'next/link';
 const Blog: FC = () => {
   return (
     <div className={style.container}>
-      <Link href="#" className={style.post}>
+      <Link href="/blog/323" className={style.post}>
         <div className={style.imgContainer}>
           <Image
             src='https://images.pexels.com/photos/13911606/pexels-photo-13911606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
