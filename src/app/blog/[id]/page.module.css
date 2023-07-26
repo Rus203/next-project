@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 50;
+  margin-top: 50px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.title {
+  font-size: 35px;
+}
+
+.top {
+  display: flex;
+  gap: 30px;
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.imgContainer {
+  position: relative;
+  height: 290px;
+  flex: 1;
+}
+
+.img {
+  object-fit: cover;
+}
+
+.content {
+  margin-top: 50px;
+  font-size: 20px;
+  font-weight: 300;
+  color: #999;
+}
+
+.avatar {
+  border-radius: 50%;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.description {
+  font-size: 18px;
+  font-weight: 300;
+}
