@@ -1,0 +1,55 @@
+.title {
+  font-size: 60px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: 100px;
+  margin-top: 80px;
+}
+
+.imgContainer {
+  position: relative;
+  height: 500px;
+  flex: 1;
+}
+
+.img {
+  object-fit: contain;
+  animation-name: move;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+}
+
+@keyframes move {
+  from {
+    transform: translateY(-10px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+  
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 20px;
+}
+
+.input,
+.textArea {
+  background-color: transparent;
+  border: 3px solid #bbb;
+  font-size: 20px;
+  padding: 20px;
+  font-weight: 700;
+  outline: none;
+  color: white;
+}
