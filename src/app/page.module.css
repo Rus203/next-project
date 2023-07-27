@@ -44,13 +44,3 @@
   
 }
 
-.button {
-  border-radius: 5px;
-  background-color: #53c28b;
-  padding: 20px;
-  color: white;
-  width: max-content;
-  cursor: pointer;
-  border: none;
-}
-

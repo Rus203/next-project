@@ -1,0 +1,1 @@
+export * from './dark-toggle-mode.component';

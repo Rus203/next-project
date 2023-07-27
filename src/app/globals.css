@@ -31,3 +31,17 @@ a {
   justify-content: space-between;
   height: 83vh;
 }
+
+.light {
+  background-color: white;
+  color: black;
+}
+
+.dark {
+  background-color: #111;
+  color: #bbb;
+}
+
+.theme {
+  transition: 1s all ease;
+}
