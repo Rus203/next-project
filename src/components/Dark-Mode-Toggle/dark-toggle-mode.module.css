@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: space-between;
   width: 55px;
-  height: 27px;
+  height: 28px;
   padding: 5px;
   gap: 8px;
   border: 3px solid #53c28b70;
@@ -19,7 +19,7 @@
 .ball {
   position: absolute;
   background-color: #53c28b;
-  width: 17px;
-  height: 17px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
 }

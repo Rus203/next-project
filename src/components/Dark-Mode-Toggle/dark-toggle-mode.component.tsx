@@ -14,8 +14,8 @@ export const DarkModeToggle: FC = () => {
       <div
         className={style.ball}
         style={mode === Modes.LIGHT
-          ? { left: '2px' }
-          : { right: '2px' }}
+          ? { left: '3px' }
+          : { right: '3px' }}
         ></div>
     </div>
   );
