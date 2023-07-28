@@ -21,12 +21,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider>
-          <div className='container'>
-            <Navbar />
-            <div className='content' >
+          <div className="wrapper">
+            <div className="container content">
+              <Navbar />
               {children}
+              <Footer />
             </div>
-            <Footer />
           </div>
         </ThemeProvider>
       </body>
