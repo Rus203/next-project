@@ -1,0 +1,45 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 300px;
+}
+
+.input {
+  padding: 20px;
+  color: #bbb;
+  background-color: transparent;
+  border: 2px solid #bbb;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: 700;
+  outline: none;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  flex-direction: column;
+}
+
+.button {
+  background-color: #53c28b;
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  width: 300px;
+  font-weight: 600;
+}
+
+.title {
+  font-size: 45px;
+}
+
+.subTitle {
+  font-size: 20px;
+  font-weight: 500;
+}
