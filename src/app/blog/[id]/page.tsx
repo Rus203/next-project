@@ -10,7 +10,6 @@ interface IProps {
 
 const BlogPost: FC<IProps> = ({ params }) => {
   const { id } = params;
-  console.log(id);
   return (
     <div className={style.container}>
       <div className={style.top}>

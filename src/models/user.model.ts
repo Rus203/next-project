@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Model } from 'mongoose';
 
 interface IUser {
   name: string,
@@ -6,20 +6,30 @@ interface IUser {
   password: string,
 }
 
-const userSchema = new Schema<IUser>({
-  name: {
-    type: String,
-    unique: true,
-    required: true
-  },
-  email: {
-    required: true,
-    unique: true,
-    type: String,
-  },
-  password: {
-    required: true
-  }
-}, { timestamps: true });
+export interface IUserDocument extends IUser, Document {}
 
-export const UserModel = model('User', userSchema);
+export interface IUserModel extends Model<IUserDocument> {}
+
+export const userSchema = new Schema<IUser>(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      required: true,
+      unique: true,
+      type: String,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true },
+);
+
+export const UserModel: IUserModel = model<IUserDocument, IUserModel>(
+  'User',
+  userSchema,
+);

@@ -10,7 +10,6 @@ interface IProps {
 }
 
 const Category: FC<IProps> = ({ params }) => {
-  console.log(params.category);
   return (
     <div className={style.container}>
       <h2 className={style.sectionTitle}>{params.category}</h2>
