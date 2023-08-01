@@ -6,7 +6,7 @@ import { FilterQuery } from 'mongoose';
 
 interface IUser {
   name: string;
-  password: string;
+  password?: string;
   email: string;
 }
 
@@ -15,38 +15,49 @@ class UserServices {
 
   async addUser(candidate: IUser): Promise<void> {
     const { name, password, email } = candidate;
-    const db = await connectDB();
+    await connectDB();
 
-    try {
-      const users: IUserDocument[] = await db
-        .model(UserModel.modelName)
-        .find({ email }, { lean: true });
+    const users: IUserDocument[] = await this.getUsers({ email });
 
-      if (users.length > 0) {
-        throw new CustomError({
-          message: 'Such email already exists', status: 409
-        });
-      }
-
-      const user = new UserModel({
-        name,
-        email,
-        password: await hash(password, 10),
+    if (users.length > 0) {
+      throw new CustomError({
+        message: 'Such email already exists',
+        status: 409,
       });
-
-      await user.save();
-    } finally {
-      db.disconnect();
     }
+    const parameters: IUser = {
+      name,
+      email,
+    };
+
+    if (password) {
+      parameters.password = await hash(password, 10);
+    }
+
+    const user = new UserModel(parameters);
+
+    await user.save();
   }
 
-  async getOneUser(entityFilterQuery:FilterQuery<IUserDocument>): Promise<IUserDocument> {
+  async getUsers(entityFilterQuery: FilterQuery<IUserDocument>): Promise<IUserDocument[]> {
     const db = await connectDB();
-    const user = await db.model(UserModel.modelName).findOne(entityFilterQuery);
+    return db
+      .model(UserModel.modelName)
+      .find(entityFilterQuery, {}, { lean: true });
+  }
+
+  async getOneUser(
+    entityFilterQuery: FilterQuery<IUserDocument>,
+  ): Promise<IUserDocument> {
+    const db = await connectDB();
+    const user = await db
+      .model(UserModel.modelName)
+      .findOne(entityFilterQuery, {}, { lean: true });
 
     if (!user) {
       throw new CustomError({
-        message: 'User wasn\'t found', status: 404
+        message: "User wasn't found",
+        status: 404,
       });
     }
 

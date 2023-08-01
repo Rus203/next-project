@@ -13,7 +13,7 @@ const Login: FC = () => {
   const params = useSearchParams();
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
- 
+
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
@@ -26,12 +26,8 @@ const Login: FC = () => {
       .namedItem('password') as HTMLInputElement).value;
 
       try {
-        const res = await signIn('credentials', { email, password }).then(() => console.log('success')).catch(error => { console.log(error);});
-
-        console.log('response');
-        console.log(res);
+        await signIn('credentials', { email, password });
       } catch (error) {
-      
         console.log(error);
         setError(error);
       }
@@ -47,35 +43,34 @@ const Login: FC = () => {
   }, [session.status, params]);
 
 
-  return <div className={style.container}>
-    <h2 className={style.title}>Please sign in to see the dashboard.</h2>
-    <form className={style.form} onSubmit={handleSubmit}>
-      <input
-        className={style.input}
-        id='email'
-        type="text"
-        placeholder='email'
-        required
-      />
-      <input
-        className={style.input}
-        id='password'
-        type="password"
-        placeholder='password'
-        required
-      />
+  return (
+    <div className={style.container}>
+      <h2 className={style.title}>{success ? success : 'Welcome Back'}</h2>
+      <h3 className={style.subTitle}>Please sign in to see the dashboard.</h3>
+      <form className={style.form} onSubmit={handleSubmit}>
+        <input
+          className={style.input}
+          id="email"
+          type="text"
+          placeholder="email"
+          required
+        />
+        <input
+          className={style.input}
+          id="password"
+          type="password"
+          placeholder="password"
+          required
+        />
+        <button type="submit" className={style.button}>
+          Login
+        </button>
+        {error && error} {/* rebuild it as soon as possible */}
+      </form>
       <button
-        type='submit'
-        className={style.button}
-      >
-        Login
-      </button>
-      {error && error} {/* rebuild it as soon as possible */}
-    </form>
-    <button
-      className={`${style.button} ${style.google}`}
-      type='button'
-      onClick={() => signIn('google')}
+        className={`${style.button} ${style.google}`}
+        type="button"
+        onClick={() => signIn('google')}
       >
         Login with Google
       </button>
@@ -83,7 +78,8 @@ const Login: FC = () => {
       <Link className={style.link} href="/dashboard/register">
         Create new account
       </Link>
-  </div>;
+    </div>
+  );
 };
 
 export default Login;

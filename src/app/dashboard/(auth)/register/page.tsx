@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 const Register: FC = () => {
-  const [error, setError] = useState<unknown | null>(null);
+  const [error, setError] = useState<boolean>(false);
   const router = useRouter();
 
   const handleSubmit = async (event: FormEvent) => {
@@ -23,8 +23,6 @@ const Register: FC = () => {
     const password = (form.elements
       .namedItem('password') as HTMLInputElement).value;
 
-
-    try {
       const res = await fetch('/api/auth/register', {
         method: 'POST',
         body: JSON.stringify({ name, email, password })
@@ -33,10 +31,8 @@ const Register: FC = () => {
       res.status === 201 && router
         .push('/dashboard/login?success=Account has been created"');
 
-    } catch (error: unknown) {
-      setError(error);
-    }
-
+      res.status >= 400 && setError(true);
+      console.log(res);
   };
 
   return (
@@ -46,32 +42,31 @@ const Register: FC = () => {
       <form className={style.form} onSubmit={handleSubmit}>
         <input
           className={style.input}
-          placeholder='user name'
+          placeholder="user name"
           type="text"
-          id='name'
+          id="name"
           required={true}
         />
         <input
           className={style.input}
-          placeholder='email'
+          placeholder="email"
           type="email"
-          id='email'
+          id="email"
           required={true}
         />
         <input
           className={style.input}
-          placeholder='password'
+          placeholder="password"
           type="password"
-          id='password'
+          id="password"
           required={true}
         />
-        <button className={style.button} type='submit'>Register</button>
+        <button className={style.button} type="submit">
+          Register
+        </button>
+        {error && 'Such email has already existed'}
       </form>
-      { error && 'Something was wrong' }
-      <Link
-        className={style.link}
-        href='/dashboard/login'
-      >
+      <Link className={style.link} href="/dashboard/login">
         Log in with existing account
       </Link>
     </div>

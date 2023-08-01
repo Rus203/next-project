@@ -1,9 +1,10 @@
 import GoogleProvider from 'next-auth/providers/google';
 import type { AuthOptions } from 'next-auth';
-import CredentialsProvider from "next-auth/providers/credentials";
+import CredentialsProvider from 'next-auth/providers/credentials';
 import { userServices } from '@/services';
 import { compare } from 'bcrypt';
 import { CustomError } from '@/utils';
+import { UserModel } from '@/models';
 
 interface Credentials {
   email: string;
@@ -15,6 +16,23 @@ export const authConfig: AuthOptions = {
     // override the default pages with auth
     signIn: '/dashboard/login',
     error: '/dashboard/login',
+  },
+  callbacks: {
+    async signIn({ user }) {
+      const { email, name } = user;
+
+      const users = await userServices.getUsers({ email });
+      if (users.length === 0) {
+        const newUser = new UserModel({
+          email,
+          name,
+        });
+
+        newUser.save();
+      }
+
+      return true;
+    },
   },
   providers: [
     GoogleProvider({
@@ -33,12 +51,12 @@ export const authConfig: AuthOptions = {
       async authorize(credentials: Credentials) {
         const { email, password } = credentials;
         const user = await userServices.getOneUser({ email });
-
         const isPassport = await compare(password, user.password);
-        
+
         if (!isPassport) {
           throw new CustomError({
-            message: 'Wrong credentials', status: 401
+            message: 'Wrong credentials',
+            status: 401,
           });
         }
 
