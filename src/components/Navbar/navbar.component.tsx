@@ -4,7 +4,8 @@ import Link from 'next/link';
 import React, { FC } from 'react';
 import style from './navbar.module.css';
 import { DarkModeToggle } from '../Dark-Mode-Toggle';
-import { signOut } from 'next-auth/react'; 
+import { signOut, useSession } from 'next-auth/react';
+
 
 const links = [
   {
@@ -40,6 +41,7 @@ const links = [
 ];
 
 export const Navbar: FC = () => {
+  const session = useSession();
   return (
   <div className={style.container} >
     <Link className={style.logo} href='/'>Rus203</Link>
@@ -48,11 +50,13 @@ export const Navbar: FC = () => {
       { links.map(page => 
         (<Link href={page.url} key={page.id}>{page.title}</Link>))
       }
-    <button
-        className={style.logout}
-        onClick={() => signOut()}>
-          Log out
-      </button>
+      { session.status === 'authenticated' ? (
+          <button
+          className={style.logout}
+          onClick={() => signOut()}>
+            Log out
+        </button>
+      ) : null }
     </div>
   </div>);
 };

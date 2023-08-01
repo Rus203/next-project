@@ -2,20 +2,23 @@
 
 import React, { FC } from 'react';
 import { useSession } from 'next-auth/react';
-import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const Dashboard: FC = () => {
-  const { data: session, status } = useSession();
+  const session = useSession();
+  const router = useRouter();
 
-  console.log(`status - ${status}`);
-  console.log(session);
+  if (session.status === 'unauthenticated') {
+    router.push('/dashboard/login');
+  }
+
+
+  if (session.status === "loading") {
+    return <p>Loading...</p>;
+  }
+
   return <div>
-    <button
-      type='button'
-      onClick={() => signIn('google')}
-    >
-      sign in google account
-    </button>
+    dashboard
   </div>;
 };
 

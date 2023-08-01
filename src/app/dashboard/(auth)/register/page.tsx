@@ -3,9 +3,11 @@
 import React, { FC, FormEvent, useState } from 'react';
 import style from './register.module.css';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const Register: FC = () => {
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState<unknown | null>(null);
+  const router = useRouter();
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -28,7 +30,10 @@ const Register: FC = () => {
         body: JSON.stringify({ name, email, password })
       });
 
-    } catch (error) {
+      res.status === 201 && router
+        .push('/dashboard/login?success=Account has been created"');
+
+    } catch (error: unknown) {
       setError(error);
     }
 
@@ -63,7 +68,12 @@ const Register: FC = () => {
         <button className={style.button} type='submit'>Register</button>
       </form>
       { error && 'Something was wrong' }
-      <Link href='/dashboard/login'>Log in with existing account</Link>
+      <Link
+        className={style.link}
+        href='/dashboard/login'
+      >
+        Log in with existing account
+      </Link>
     </div>
   );
 };
