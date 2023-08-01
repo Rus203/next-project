@@ -1,0 +1,70 @@
+.container {
+  display: flex;
+  gap: 100px;
+  padding-top: 50px;
+}
+
+.posts {
+  flex: 1
+}
+
+.form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.postItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 100px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.delete {
+  color: red;
+  cursor: pointer;
+}
+
+.delete:hover {
+  scale: 1.1;
+}
+
+.imgContainer {
+  position: relative;
+  height: 150px;
+  width: 300px;
+}
+
+.img {
+  object-fit: cover;
+}
+
+.input, .textArea {
+  padding: 20px;
+  color: #bbb;
+  background-color: transparent;
+  border: 2px solid #bbb;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: 700;
+  outline: none;
+}
+
+.button {
+  background-color: #53c28b;
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  width: 300px;
+  font-weight: 600;
+}
+
+.formTitle {
+  font-size: 38px;
+}
