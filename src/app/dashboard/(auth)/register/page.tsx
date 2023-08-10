@@ -32,7 +32,6 @@ const Register: FC = () => {
         .push('/dashboard/login?success=Account has been created"');
 
       res.status >= 400 && setError(true);
-      console.log(res);
   };
 
   return (

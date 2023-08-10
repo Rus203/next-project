@@ -2,18 +2,14 @@
 
 import React, { FC } from 'react';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import style from './dashboard.module.css';
 import Image from 'next/image';
 
+import { SessionProvider } from '@/components/Session-Provider';
+
+
 const Dashboard: FC = () => {
   const session = useSession();
-  const router = useRouter();
-
-  if (session.status === 'unauthenticated') {
-    router.push('/dashboard/login');
-  }
-
 
   if (session.status === "loading") {
     return <p>Loading...</p>;
@@ -136,4 +132,7 @@ const Dashboard: FC = () => {
   </div>);
 };
 
-export default Dashboard;
+
+const DashboardWithAuth = SessionProvider({ Component: Dashboard });
+
+export default DashboardWithAuth;
