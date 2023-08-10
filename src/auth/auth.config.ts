@@ -28,11 +28,18 @@ export const authConfig: AuthOptions = {
           name,
         });
 
-        newUser.save();
-      }
+        await newUser.save();
+      } 
 
       return true;
     },
+
+    async session({ session }) {
+      const { email } = session.user;
+      const user = await userServices.getOneUser({ email });
+      session.user.id = user._id;
+      return session;
+    }
   },
   providers: [
     GoogleProvider({

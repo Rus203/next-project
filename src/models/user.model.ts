@@ -6,7 +6,9 @@ interface IUser {
   password: string,
 }
 
-export interface IUserDocument extends IUser, Document {}
+export interface IUserDocument extends IUser, Document {
+  _id: string;
+}
 
 export interface IUserModel extends Model<IUserDocument> {}
 
@@ -33,3 +35,4 @@ export const UserModel = models.User || model<IUserDocument, IUserModel>(
   'User',
   userSchema,
 );
+
