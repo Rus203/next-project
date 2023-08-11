@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { userServices } from '@/services/user.services';
+import { userService } from '@/services/user.services';
 import { CustomError } from '@/utils/custom-http-error';
 
 export const POST = async (request: NextRequest) => {
@@ -7,7 +7,7 @@ export const POST = async (request: NextRequest) => {
 
   // console.log(name, password, email);
   try {
-    await userServices.addUser({ name, password, email });
+    await userService.addUser({ name, password, email });
     return new NextResponse('User has been created', { status: 201 });
     } catch (error: unknown) {
 

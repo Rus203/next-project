@@ -1,12 +1,5 @@
 import { Schema, model, models, Model } from 'mongoose';
-
-interface IPost {
-  title: string;
-  description: string;
-  image: string;
-  content: string;
-  userName: string;
-}
+import { IPost } from '@/interfaces';
 
 export interface IPostDocument extends IPost, Document {}
 
@@ -29,7 +22,7 @@ const postSchema = new Schema<IPost>({
     required: true,
     type: String,
   },
-  userName: {
+  userId: {
     required: true,
     type: String,
   },

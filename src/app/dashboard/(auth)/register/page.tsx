@@ -41,7 +41,7 @@ const Register: FC = () => {
       <form className={style.form} onSubmit={handleSubmit}>
         <input
           className={style.input}
-          placeholder="user name"
+          placeholder="name"
           type="text"
           id="name"
           required={true}

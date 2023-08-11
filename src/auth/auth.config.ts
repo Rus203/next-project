@@ -1,7 +1,7 @@
 import GoogleProvider from 'next-auth/providers/google';
 import type { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { userServices } from '@/services';
+import { userService } from '@/services';
 import { compare } from 'bcrypt';
 import { CustomError } from '@/utils';
 import { UserModel } from '@/models';
@@ -20,7 +20,7 @@ export const authConfig: AuthOptions = {
     async signIn({ user }) {
       const { email, name } = user;
 
-      const users = await userServices.getUsers({ email });
+      const users = await userService.getUsers({ email });
       if (users.length === 0) {
         const newUser = new UserModel({
           email,
@@ -35,7 +35,7 @@ export const authConfig: AuthOptions = {
 
     async session({ session }) {
       const { email } = session.user;
-      const user = await userServices.getOneUser({ email });
+      const user = await userService.getOneUser({ email });
       session.user.id = user._id;
       return session;
     }
@@ -56,8 +56,8 @@ export const authConfig: AuthOptions = {
       // @ts-ignore
       async authorize(credentials: Credentials) {
         const { email, password } = credentials;
-        const user = await userServices.getOneUser({ email });
-        const isPassport = await compare(password, user.password);
+        const user = await userService.getOneUser({ email });
+        const isPassport = await compare(password, user.password ?? '' );
 
         if (!isPassport) {
           throw new CustomError({

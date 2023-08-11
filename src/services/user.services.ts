@@ -3,17 +3,14 @@ import { IUserDocument, UserModel } from '@/models';
 import { hash } from 'bcrypt';
 import { CustomError } from '@/utils';
 import { FilterQuery } from 'mongoose';
+import { IUser } from '@/interfaces';
 
-interface IUser {
-  name: string;
-  password?: string;
-  email: string;
-}
 
-class UserServices {
+class UserService {
   constructor() {}
 
-  async addUser(candidate: IUser): Promise<void> {
+  async addUser(candidate: Pick<IUser, 'name' | 'password' | 'email'>)
+  : Promise<void> {
     const { name, password, email } = candidate;
     await connectDB();
 
@@ -25,21 +22,21 @@ class UserServices {
         status: 409,
       });
     }
-    const parameters: IUser = {
-      name,
-      email,
-    };
+
+    let user;
 
     if (password) {
-      parameters.password = await hash(password, 10);
+      const passwordHash: string = await hash(password, 10);
+      user = new UserModel({ email, name, password: passwordHash});
+    } else {
+      user = new UserModel({ email, name });
     }
-
-    const user = new UserModel(parameters);
 
     await user.save();
   }
 
-  async getUsers(entityFilterQuery: FilterQuery<IUserDocument>): Promise<IUserDocument[]> {
+  async getUsers(entityFilterQuery: FilterQuery<IUserDocument>)
+  : Promise<IUserDocument[]> {
     const db = await connectDB();
     return db
       .model(UserModel.modelName)
@@ -47,7 +44,7 @@ class UserServices {
   }
 
   async getOneUser(
-    entityFilterQuery: FilterQuery<IUserDocument>,
+    entityFilterQuery: FilterQuery<IUserDocument>
   ): Promise<IUserDocument> {
     const db = await connectDB();
     const user = await db
@@ -65,4 +62,4 @@ class UserServices {
   }
 }
 
-export const userServices = new UserServices();
+export const userService = new UserService();

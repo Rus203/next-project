@@ -5,10 +5,6 @@ import { getServerSession } from "next-auth/next";
 // connectDB();
 
 export const GET = async (res: NextResponse) => {
-  console.log('session: ');
-  const session = await getServerSession();
-  console.log(session);
-  console.log(session?.user.googleId);
   return new NextResponse('Answer from the server');
 };
 
