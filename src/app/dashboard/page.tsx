@@ -1,20 +1,12 @@
 'use client';
 
 import React, { FC } from 'react';
-import { useSession } from 'next-auth/react';
 import style from './dashboard.module.css';
 import Image from 'next/image';
-
 import { SessionProvider } from '@/components/Session-Provider';
 
 
 const Dashboard: FC = () => {
-  const session = useSession();
-
-  if (session.status === "loading") {
-    return <p>Loading...</p>;
-  }
-
   return (
   <div className={style.container}>
     <div className={style.posts}>

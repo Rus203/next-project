@@ -13,7 +13,6 @@ interface Credentials {
 
 export const authConfig: AuthOptions = {
   pages: {
-    // override the default pages with auth
     signIn: '/dashboard/login',
     error: '/dashboard/login',
   },

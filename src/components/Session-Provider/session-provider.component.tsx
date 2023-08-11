@@ -10,8 +10,13 @@ type WithAuthProps = {
 
 export function SessionProvider({ Component }: WithAuthProps) {
   const WithAuthComponent: FC = (props) => {
-    const { data: session } = useSession();
+    const { data: session, status } = useSession();
     const router = useRouter();
+
+
+    if (status === "loading") {
+      return <p>Loading...</p>;
+    }
 
     if (!session) {
       router.push('/dashboard/login');
